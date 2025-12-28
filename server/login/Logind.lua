@@ -1,8 +1,8 @@
 
-local crypt = require "skynet.crypt"
 local skynet = require "skynet"
-local login = require "LoginGate"
+local crypt = require "skynet.crypt"
 local cluster = require "skynet.cluster"
+local login = require "LoginGate"
 local log = require "Log"
 
 local server = {

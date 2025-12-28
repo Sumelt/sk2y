@@ -8,6 +8,7 @@ skynet.start(function()
 				game = "127.0.0.1:7102",  
 		})
         skynet.uniqueservice(true, "Logind")
+        skynet.uniqueservice(true, "Mongod")
 		cluster.open(skynet.getenv("node"))
 		cluster.register("Logind")
         skynet.exit()
