@@ -16,7 +16,7 @@ start = "Main"
 logger     = "Loggerd" 
 logservice = "snlua"  
 logpath    = "./log/"
-loggroup   = "test"
+loggroup   = "login"
 -----------------------------------------------------------------------------------------------------------
 luaservice = g_luaservice ..
 		"./server/login/?.lua;" ..
