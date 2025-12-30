@@ -9,6 +9,7 @@ db_username = "sk2y"
 db_password = "sk2y"
 db_auth = "admin"
 db_name = "sk2y-login"
+db_pool_size = 1
 -----------------------------------------------------------------------------------------------------------
 bootstrap = "snlua bootstrap"
 start = "Main"
@@ -19,14 +20,10 @@ logpath    = "./log/"
 loggroup   = "login"
 -----------------------------------------------------------------------------------------------------------
 luaservice = g_luaservice ..
-		"./server/login/?.lua;" ..
-		"./server/common/log/?.lua;" ..
-		"./server/common/db/?.lua;"
+		"./server/login/?.lua;"
 -----------------------------------------------------------------------------------------------------------
 lua_path = g_lua_path ..
-		"./server/login/?.lua;" .. 
-		"./server/common/log/?.lua;" ..
-		"./server/common/db/?.lua;"
+		"./server/login/?.lua;" 
 -----------------------------------------------------------------------------------------------------------
 
 
