@@ -46,7 +46,6 @@ function clsObject:New(...)
 end
 
 function clsObject:__init__()
-	print("base")
 end
 
 function clsObject:release()
