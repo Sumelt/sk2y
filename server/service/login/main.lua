@@ -7,9 +7,9 @@ skynet.start(function()
 				login = "127.0.0.1:7101",  
 				game = "127.0.0.1:7102",  
 		})
-        skynet.uniqueservice(true, "Logind")
+        skynet.uniqueservice(true, "logind")
 		cluster.open(skynet.getenv("node"))
-		cluster.register("Logind")
+		cluster.register("csLogin")
         skynet.exit()
     end
 )

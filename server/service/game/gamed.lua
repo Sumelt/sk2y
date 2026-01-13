@@ -21,7 +21,7 @@ function server.login_handler(uid, secret)
 	local username = gameGate.username(uid, subid, SERVER_NAME)
 
 	if not uid_agent[uid] then
-		uid_agent[uid] = assert(snax.newservice("Agent"))
+		uid_agent[uid] = assert(snax.newservice("agent"))
 	end
 	local agent = uid_agent[uid]
 
@@ -48,7 +48,7 @@ function server.logout_handler(username, uid)
 		gameGate.logout(username)
 		username_map[username] = nil
 		uid_agent[uid] = nil
-		cluster.call("login", ".Logind", "logout", uid, u.subid)
+		cluster.call("login", ".logind", "logout", uid, u.subid)
 	end
 end
 

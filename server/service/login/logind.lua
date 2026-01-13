@@ -9,7 +9,7 @@ local server = {
     host = "0.0.0.0",
     port = 8001,
     multilogin = false, -- multilogin
-    name = "Logind",
+    name = "logind",
 	instance = 1,
 }
 

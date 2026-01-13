@@ -1,6 +1,6 @@
 
-require "Class"
-require "LuaExt"
+require "class"
+require "lua_ext"
 
 
 

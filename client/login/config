@@ -1,13 +1,13 @@
 
-skynetpath = "../skynet/"
+skynetpath = "./server/skynet/"
 thread = 8
 harbor = 0
 
 -----------------------------------------------------------------------------------------------------------
 bootstrap = "snlua bootstrap"
-start = "Main"
+start = "main"
 -----------------------------------------------------------------------------------------------------------
-luaservice = "./skynet/service/?.lua;"..
+luaservice = skynetpath.."service/?.lua;"..
 		"./client/login/?.lua"
 -----------------------------------------------------------------------------------------------------------
 lualoader = skynetpath.."lualib/loader.lua"

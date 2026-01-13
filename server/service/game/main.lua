@@ -8,15 +8,15 @@ skynet.start(function()
 		login = "127.0.0.1:7101",
 		game = "127.0.0.1:7102",
 	})
-	local addr = skynet.uniqueservice(true, "Gamed")
+	local addr = skynet.uniqueservice(true, "gamed")
 	skynet.call(addr, "lua", "open", {
 		port = tonumber(skynet.getenv("port")) or 8888,
 		maxclient = tonumber(skynet.getenv("maxclient")) or 1024,
 		servername = "sample",
 	})
-	cluster.register("Gamed")
+	cluster.register("csGamed")
 	cluster.open(skynet.getenv("node"))
-	cluster.call("login", ".Logind", "register_gate", "sample", addr)
+	cluster.call("login", ".logind", "register_gate", "sample", addr)
 	skynet.exit()
 end
 )
