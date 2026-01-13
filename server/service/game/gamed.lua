@@ -2,7 +2,7 @@
 local sys = require "extend"
 local skynet = require "skynet"
 local snax = require "skynet.snax"
-local gameGate = require "GameGate"
+local gameGate = require "game_gate"
 local cluster = require "skynet.cluster"
 require "skynet.manager"
 

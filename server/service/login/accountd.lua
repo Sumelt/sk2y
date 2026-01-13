@@ -1,7 +1,7 @@
 
 local snax = require "skynet.snax"
 local cluster = require "skynet.cluster"
-local log = require "Log"
+local log = require "log"
 
 local gameOnlineTbl = {}
 
