@@ -2,6 +2,7 @@
 require "skynet.manager"
 local skynet = require "skynet"
 local mongo = require "skynet.db.mongo"
+local mongoConfig = require "etc.mongo"
 
 local db = nil
 local dbName, index = ...
@@ -49,13 +50,8 @@ function CMD.drop(coll)
 end
 
 local function initMongo(dbName, index)
-	local dbs = mongo.client({
-		host = skynet.getenv("db_host"),
-		port = skynet.getenv("db_port"),
-		username = skynet.getenv("db_username"),
-		password = skynet.getenv("db_password"),
-		authdb = skynet.getenv("db_auth"),
-	})
+	local cfg = mongoConfig.getDBCfg()
+	local dbs = mongo.client(cfg)
 	db = dbs[dbName]
 end
 

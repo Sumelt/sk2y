@@ -3,6 +3,7 @@ local schema = require "orm.schema"
 local driver = require "mongo_driver"
 local timer = require "timer"
 local log = require "log"
+local mongoConfig = require "etc.mongo"
 
 local mongo_config
 
@@ -14,12 +15,11 @@ local db_save_interval = 3 * 60
 local M = {}
 
 local function check_collection(dbName, dbCol)
-    local db_config = mongo_config[dbName]
-    if db_config == nil then
+    if not mongoConfig.isExistDB(dbName) then
         error("database not configured" .. dbName)
     end
 
-    local coll_config = db_config.collections[dbCol]
+    local coll_config = mongoConfig.getColInfo(dbCol)
     if coll_config == nil then
         error("collection not configured" .. dbName .. "." .. dbCol)
     end

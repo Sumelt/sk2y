@@ -1,6 +1,7 @@
 local skynet = require "skynet"
 local clsCol = require "mongo_col"
 local mongo = require "skynet.db.mongo"
+local mongoConfig = require "etc.mongo"
 
 local clsBase = clsObject:Inherit()
 
@@ -25,16 +26,16 @@ function clsBase:__init__(oci)
 			self[k] = oci[k]
 		end
 	end
-	for index = 1, skynet.getenv("db_con") do
+	for index = 1, mongoConfig.getConnection() do
 		table.insert(self._conns, { 
 			index = index,
-			addr = clsBase:initConnect(index),
+			addr = self:initConnect(index),
 		})
 	end
 end
 
 function clsBase:initConnect(index)
-	local addr = skynet.newservice("Mongod", self._name, index)
+	local addr = skynet.newservice("mongod", self._name, index)
 	return addr
 end
 
@@ -49,14 +50,14 @@ function clsBase:call(cmd, ...)
 end
 
 function clsBase:getCollection(colName)
-	local colObj = self.collections[colName]
+	local colObj = self._collections[colName]
     if not colObj then
 		local oci = {
 			_name = colName,
 		}
 		colObj = clsCol:New(oci)	
 		colObj:setDBObj(self)
-		self.collections[colName] = colObj
+		self._collections[colName] = colObj
     end
     return colObj
 end

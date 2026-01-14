@@ -58,5 +58,4 @@ function clsCol:safe_update(query, update, upsert, multi)
     return self._dbObj:call("raw_safe_update", self._name, to_lightuserdata(bson_obj))
 end
 
-
 return clsCol

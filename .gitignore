@@ -3,4 +3,4 @@
 *.tmp
 *.temp
 server/bin/*
-skynet
+tags

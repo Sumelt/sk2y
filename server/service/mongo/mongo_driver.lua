@@ -3,8 +3,8 @@ local log = require "log"
 local skynet = require "skynet"
 local mongo = require "skynet.db.mongo"
 local clsBase = require "mongo_base"
+local queue = require "skynet.queue"
 
-local M = {}
 local dbs = {
 	--[[
 		[dbName] = dbObj
@@ -15,6 +15,8 @@ local dbLocks = {
 		[dbName] = lock
 	--]]
 }
+
+local M = {}
 
 local function createDBObj(dbName)
 		local oci = {
@@ -35,7 +37,8 @@ local function getDBObj(dbName)
 
 	local lock = dbLocks[dbName]
 	if not lock then
-		dbLocks[dbName] = skynet.queue()
+		lock = queue()
+		dbLocks[dbName] = lock
 	end
 	return lock(function (dbName)
 		local dbObj = dbs[dbName]
