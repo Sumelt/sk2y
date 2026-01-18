@@ -2,7 +2,7 @@
 local skynet = require "skynet"
 local binaryheap = require "binaryheap"
 local time = require "time"
-local log = require "Log"
+local log = require "log"
 
 local mrandom = math.random
 local millisecond = time.now_ms
@@ -127,7 +127,9 @@ local function exec_timers(timer_ids, ms_now)
     for _, id in pairs(timer_ids) do
         local timer_obj = g_timers[id]
         if timer_obj then
-            xpcall(timer_obj._func)
+            xpcall(timer_obj._func, function(errms) 
+				log.error("errms=%s,trace=%s", errms, debug.traceback())
+			end)
             update_timer(id, ms_now)
         end
 

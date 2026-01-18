@@ -2,6 +2,7 @@
 local skynet = require "skynet"
 local mongo = require "skynet.db.mongo"
 local mongoConfig = require "etc.mongo"
+local log = require "log"
 
 local CMD = {}
 
@@ -19,14 +20,14 @@ function CMD.create_indexes()
                     local ok, err = pcall(collection.createIndex, collection, index)
                     if not ok then
                         all_ok = false
-                        log.error("failed to create index,dbname=%s,coll_name=%s,err=%s", dbname, coll_name, err)
+                        log.error("failed to create index,dbName=%s,colName=%s,err=%s", dbName, colName, err)
                     else
-                        log.info("index created successfully,dbname=%s,coll_name=%s,index=%s", dbname, coll_name, index)
+                        log.info("index created successfully,dbName=%s,colName=%s,index=%s", dbName, colName, index)
                     end
                 end
 			else
-                log.error("collection not found,dbname=%s,coll_name=%s", dbname, coll_name)
                 all_ok = false
+                log.error("collection not found,dbName=%s,colName=%s", dbName, colName)
 			end
 	end
     return all_ok

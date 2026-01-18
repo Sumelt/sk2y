@@ -14,7 +14,7 @@ local mongo_config = {
         collections = {
             role = {
                 indexes = {
-                    { "userId", unique = true, background = true },
+                    { "rid", unique = true, background = true },
                     { "account", "server", background = true },
                 },
             },
@@ -58,11 +58,11 @@ function M.getColTbl()
 end
 
 function M.getColInfo(colName)
-	return getColTbl()[colName]
+	return M.getColTbl()[colName]
 end
 
 function M.getColIndex(colName)
-	local info = getColInfo(colName)
+	local info = M.getColInfo(colName)
 	return info.indexes
 end
 

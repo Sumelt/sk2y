@@ -29,12 +29,12 @@ function clsBase:__init__(oci)
 	for index = 1, mongoConfig.getConnection() do
 		table.insert(self._conns, { 
 			index = index,
-			addr = self:initConnect(index),
+			addr = self:createConnect(index),
 		})
 	end
 end
 
-function clsBase:initConnect(index)
+function clsBase:createConnect(index)
 	local addr = skynet.newservice("mongod", self._name, index)
 	return addr
 end

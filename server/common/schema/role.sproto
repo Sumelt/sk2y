@@ -1,0 +1,6 @@
+.role {
+    _version 0 : integer
+    rid 1 : integer
+    account 3 : string
+    server 4 : string 
+}

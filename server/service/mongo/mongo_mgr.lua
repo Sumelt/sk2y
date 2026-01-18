@@ -4,13 +4,14 @@ local driver = require "mongo_driver"
 local timer = require "timer"
 local log = require "log"
 local mongoConfig = require "etc.mongo"
+local sys = require "extend"
 
 local mongo_config
 
 local g_collection_obj = {} -- 数据库链接
 local g_cache_collection = {} -- 缓存数据对象
 local g_default_projection = { _id = false }
-local db_save_interval = 3 * 60
+local db_save_interval = 5
 
 local M = {}
 
@@ -52,10 +53,12 @@ end
 local function save_dirty(coll_obj, query, dirty_doc)
     local ok, err, ret = coll_obj:safe_update(query, dirty_doc, true)
     if not ok then
+		log.error("save failed,ret=%s,err=%s",ret, err)
         return false
     end
 
     if ret.nModified ~= 1 then
+		log.error("save failed not modified,ret=%s,err=%s",ret, err)
         return false
     end
     return true
@@ -77,11 +80,13 @@ local function save_doc(coll_obj, key, unique_id, doc)
         return true
     end
 
+	sys.tout(query, "query")
+	sys.tout(dirty_doc, "dirty_doc")
     local ok = save_dirty(coll_obj, query, dirty_doc)
     if not ok then
         doc._version = doc._version - 1
     end
-
+	sys.tout(doc, "save_doc")
     return true
 end
 
@@ -153,7 +158,7 @@ function M.load(dbName, dbCol, key, unique_id, default)
         upsert = true,
         new = true,
     })
-
+	sys.tout(ret, "ret")
     if ret.ok ~= 1 then
         return
     end
@@ -167,7 +172,7 @@ function M.load(dbName, dbCol, key, unique_id, default)
     local doc = schema[dbCol].new(ret.value)
 
     -- 定时器入库脏数据(随机分布)
-    local timer_obj = timer.repeat_random_delayed("MongoMgr", db_save_interval, function()
+    local timer_obj = timer.repeat_random_delayed("mongo_mgr", db_save_interval, function()
         save_doc(coll_obj, key, unique_id, doc)
     end)
 

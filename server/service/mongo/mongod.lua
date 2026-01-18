@@ -27,11 +27,7 @@ end
 
 function CMD.find_one(coll, doc, projection)
     local colObj = db[coll]
-    local ret = colObj:findOne(doc, projection)
-    for k, v in pairs(ret or {}) do
-
-    end
-    return ret
+    return colObj:findOne(doc, projection)
 end
 
 function CMD.raw_safe_insert(coll, bson_str)
