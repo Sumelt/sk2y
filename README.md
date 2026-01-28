@@ -1,6 +1,9 @@
 A demo base skynet
 
 ## Todo List
-- [ ]  MongoDB
+- [x]  MongoDB
 - [ ]  Redis
 - [ ]  Web
+
+## Learn
+- https://github.com/hanxi/skyext
