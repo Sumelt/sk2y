@@ -1,6 +1,6 @@
 local orm = require "orm"
 local schema = require "orm.schema"
-local driver = require "mongo_driver"
+local driver = require "mongo.driver"
 local timer = require "timer"
 local log = require "log"
 local mongoConfig = require "etc.mongo"
@@ -79,14 +79,10 @@ local function save_doc(coll_obj, key, unique_id, doc)
     if not is_dirty then
         return true
     end
-
-	sys.tout(query, "query")
-	sys.tout(dirty_doc, "dirty_doc")
     local ok = save_dirty(coll_obj, query, dirty_doc)
     if not ok then
         doc._version = doc._version - 1
     end
-	sys.tout(doc, "save_doc")
     return true
 end
 
@@ -124,6 +120,7 @@ function M.unload(dbName, dbCol, key, unique_id)
     local coll_obj = get_collection_obj(dbName, dbCol)
     local ok = save_doc(coll_obj, key, unique_id, doc)
     if not ok then
+		log.error("unload save failed")
     end
 
     cache.unloading = nil
@@ -158,7 +155,6 @@ function M.load(dbName, dbCol, key, unique_id, default)
         upsert = true,
         new = true,
     })
-	sys.tout(ret, "ret")
     if ret.ok ~= 1 then
         return
     end

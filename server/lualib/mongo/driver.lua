@@ -2,7 +2,7 @@
 local log = require "log"
 local skynet = require "skynet"
 local mongo = require "skynet.db.mongo"
-local clsBase = require "mongo_base"
+local clsBase = require "mongo.base"
 local queue = require "skynet.queue"
 
 local dbs = {

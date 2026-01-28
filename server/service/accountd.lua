@@ -1,8 +1,10 @@
 
-local snax = require "skynet.snax"
-local cluster = require "skynet.cluster"
 local log = require "log"
+local skynet = require "skynet"
+local http_server = require "http"
+local accountConfig = require "etc.account"
 
+--[[
 local gameOnlineTbl = {}
 
 function response.init()
@@ -26,4 +28,20 @@ function accept.registerGameOnline(gameNode, openTime)
 		return a.openTime > b.openTime
 	end)
 end
+
+]]
+
+skynet.start(function()
+    log.info("accountd start begin")
+    local port = accConfig.getPort()
+    local agent_count = accountConfig.getAgentCnt()
+    local conf = {
+        port = port,
+        agent_count = agent_count,
+    }
+    http_server.start(conf)
+    http_server.register_router("router.account")
+    skynet.exit()
+end)
+
 

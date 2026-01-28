@@ -7,3 +7,6 @@
 [submodule "server/3rd/sproto-orm"]
 	path = server/3rd/sproto-orm
 	url = https://github.com/hanxi/sproto-orm.git
+[submodule "server/3rd/lua-cjson"]
+	path = server/3rd/lua-cjson
+	url = https://github.com/mpx/lua-cjson.git

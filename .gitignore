@@ -6,3 +6,4 @@ server/bin/*
 tags
 server/common/lualib/orm/schema.lua
 server/common/lualib/orm/schema_define.lua
+skyext

@@ -1,12 +1,12 @@
 
 local skynet = require "skynet"
-local driver = require "mongo_driver"
-local dbMgr = require "mongo_mgr"
+local driver = require "mongo.driver"
+local dbMgr = require "mongo.mgr"
 local sys = require "extend"
 
 skynet.start(function()
 		driver.getCollection("sk2y-login", "role")
-		local addr = skynet.newservice("mongo_index")
+		local addr = skynet.newservice("indexd")
 		local ok = skynet.call(addr, "lua", "create_indexes")
 		if ok then
 			print("ok")	
@@ -14,5 +14,4 @@ skynet.start(function()
 			print("no")
 		end
 		local doc = dbMgr.load("sk2y-login", "role", "rid", 123)
-		doc._version = 6
 end)

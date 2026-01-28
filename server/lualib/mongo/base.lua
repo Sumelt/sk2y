@@ -1,5 +1,5 @@
 local skynet = require "skynet"
-local clsCol = require "mongo_col"
+local clsCol = require "mongo.coll"
 local mongo = require "skynet.db.mongo"
 local mongoConfig = require "etc.mongo"
 
