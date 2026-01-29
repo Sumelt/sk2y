@@ -53,12 +53,12 @@ end
 local function save_dirty(coll_obj, query, dirty_doc)
     local ok, err, ret = coll_obj:safe_update(query, dirty_doc, true)
     if not ok then
-		log.error("save failed,ret=%s,err=%s",ret, err)
+		log.error("save failed, ret=%s, err=%s",ret, err)
         return false
     end
 
     if ret.nModified ~= 1 then
-		log.error("save failed not modified,ret=%s,err=%s",ret, err)
+		log.error("save failed not modified, ret=%s, err=%s",ret, err)
         return false
     end
     return true
@@ -156,6 +156,7 @@ function M.load(dbName, dbCol, key, unique_id, default)
         new = true,
     })
     if ret.ok ~= 1 then
+		log.error("load failed")
         return
     end
 

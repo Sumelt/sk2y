@@ -20,9 +20,9 @@ end
 _G.SCRIPT_DIRECTORY = get_script_directory()
 
 package.path = package.path .. ";" .. SCRIPT_DIRECTORY .. "../3rd/sproto-orm/tools/sprotodump/?.lua"
-package.path = package.path .. ";" .. SCRIPT_DIRECTORY .. "../common/lualib/?.lua"
+package.path = package.path .. ";" .. SCRIPT_DIRECTORY .. "../lualib/?.lua"
 package.cpath = package.cpath .. ";" .. SCRIPT_DIRECTORY .. "../skynet/luaclib/?.so"
-package.cpath = package.cpath .. ";" .. SCRIPT_DIRECTORY .. "../common/luaclib/?.so"
+package.cpath = package.cpath .. ";" .. SCRIPT_DIRECTORY .. "../luaclib/?.so"
 
 -- 解析命令行参数
 local target_script = arg[1]
