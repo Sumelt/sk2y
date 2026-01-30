@@ -43,6 +43,7 @@ local function handle_request(id, interface, addr)
 
 	if code ~= 200 then
 		response(id, interface.write, code)
+		log.warn("handle_request handle failed, id=%s, addr=%s, url=%s", id, addr, url)
 		return
 	end
 
@@ -58,12 +59,14 @@ local function handle_request(id, interface, addr)
 
 	if method == "OPTIONS" then
 		response(id, interface.write, 204, "", res.header)
+		log.warn("handle_request method failed, id=%s, addr=%s, url=%s", id, addr, url)
 		return
 	end
 
 	local method_routers = routers[method]
 	if not method_routers then
 		response(id, interface.write, 405)
+		log.warn("handle_request method routers not found, id=%s, addr=%s, url=%s", id, addr, url)
 		return
 	end
 
@@ -165,11 +168,12 @@ function CMD.register_router(router_name)
 end
 
 skynet.start(function()
-	skynet.dispatch("lua", function(session, source, cmd, ...)
-		local f = assert(CMD[cmd] or SOCKET[cmd], string.format('unknown operation: %s', cmd))
+	skynet.dispatch("lua", function(session, source, cmd, subcmd, ...)
 		if cmd == "socket" then
+			local f = assert(SOCKET[subcmd], string.format('unknown operation: %s', subcmd))
 			f(...)
 		else
+			local f = assert(CMD[cmd], string.format('unknown operation: %s', cmd))
 			skynet.ret(skynet.pack(f(...)))
 		end
 	end)
