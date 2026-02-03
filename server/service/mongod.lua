@@ -45,21 +45,16 @@ function CMD.drop(coll)
 	colObj:drop()
 end
 
-local function initMongo(dbName, index)
+skynet.init(function()
 	local cfg = mongoConfig.getDBCfg()
 	local dbs = mongo.client(cfg)
 	db = dbs[dbName]
-end
+end)
 
 skynet.start(function()
-	initMongo(dbName, index)
 	skynet.dispatch("lua", function(session, source, cmd, ...)
 		local f = assert(CMD[cmd], string.format('unknown operation: %s', cmd))
-		if cmd == "socket" then
-			f(...)
-		else
-			skynet.ret(skynet.pack(f(...)))
-		end
+		skynet.ret(skynet.pack(f(...)))
 	end)
 end)
 

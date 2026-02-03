@@ -2,6 +2,7 @@
 *.log
 *.tmp
 *.temp
+*.swp
 server/bin/*
 tags
 server/common/lualib/orm/schema.lua

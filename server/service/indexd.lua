@@ -35,11 +35,7 @@ end
 
 skynet.start(function()
 	skynet.dispatch("lua", function(session, source, cmd, ...)
-		local f = assert(CMD[cmd], string.format('mongodb unknown operation: %s', cmd))
-		if cmd == "socket" then
-			f(...)
-		else
-			skynet.ret(skynet.pack(f(...)))
-		end
+		local f = assert(CMD[cmd], string.format('unknown operation: %s', cmd))
+		skynet.ret(skynet.pack(f(...)))
 	end)
 end)

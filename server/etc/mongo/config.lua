@@ -1,6 +1,6 @@
 local skynet = require "skynet"
 
-local mongo_config = {
+local config = {
 	login = {
 		dbName = "sk2y-login",
         connections = 2,
@@ -30,7 +30,7 @@ end
 
 local function getNodeCfg()
 	local node = getNode()
-	return mongo_config[node]
+	return config[node]
 end
 
 function M.getConnection()

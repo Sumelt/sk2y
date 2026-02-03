@@ -1,12 +1,10 @@
 
 local skynet = require "skynet"
 
-local acc_config = {
+local config = {
 	login = {
-        cfg = {
-			agent = 2,
-            port = 8080,
-        },
+		agent = 2,
+		port = 8080,
     },
 }
 
@@ -18,7 +16,7 @@ end
 
 local function getNodeCfg()
 	local node = getNode()
-	return acc_config[node]
+	return config[node]
 end
 
 function M.getPort()

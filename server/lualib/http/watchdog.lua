@@ -2,6 +2,7 @@
 local log = require "log"
 local skynet = require "skynet"
 local socket = require "skynet.socket"
+local dispatch = require "dispatch_api"
 
 local CMD = {}
 local agents = {}
@@ -34,14 +35,7 @@ function CMD.register_router(router_name)
 end
 
 skynet.start(function()
-	skynet.dispatch("lua", function(session, source, cmd, ...)
-		local f = assert(CMD[cmd], string.format('watchdog unknown operation: %s', cmd))
-		if cmd == "socket" then
-			f(...)
-		else
-			skynet.ret(skynet.pack(f(...)))
-		end
-	end)
+	dispatch.cmd(CMD)
 end)
 
 

@@ -8,6 +8,7 @@ local httpd = require "http.httpd"
 local cjson = require "cjson.safe"
 local urllib = require "http.url"
 local util_io = require "util.io"
+local dispatch = require "dispatch_api"
 
 local decode_json = cjson.decode
 local encode_json = cjson.encode
@@ -153,7 +154,6 @@ function SOCKET.request(id, addr)
 end
 
 function CMD.register_router(router_name)
-	print(router_name)
 	local router = require(router_name)
 	for method, handlers in pairs(router) do
 		for path, handler in pairs(handlers) do
@@ -168,15 +168,8 @@ function CMD.register_router(router_name)
 end
 
 skynet.start(function()
-	skynet.dispatch("lua", function(session, source, cmd, subcmd, ...)
-		if cmd == "socket" then
-			local f = assert(SOCKET[subcmd], string.format('unknown operation: %s', subcmd))
-			f(...)
-		else
-			local f = assert(CMD[cmd], string.format('unknown operation: %s', cmd))
-			skynet.ret(skynet.pack(f(...)))
-		end
-	end)
+	dispatch.cmd(CMD)
+	dispatch.socket(SOCKET)
 	log.info("http agent start, agent_id=%s", agent_id)
 end)
 
