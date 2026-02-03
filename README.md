@@ -4,6 +4,8 @@ A demo base skynet
 - [x]  MongoDB
 - [ ]  Redis
 - [ ]  Web
+- [ ]  etcd
+- [ ]  login
 
 ## Learn
 - https://github.com/hanxi/skyext
