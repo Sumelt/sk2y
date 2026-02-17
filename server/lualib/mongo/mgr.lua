@@ -26,7 +26,7 @@ local function check_collection(dbName, dbCol)
     end
 end
 
-local function getCollectionObj(dbName, dbCol)
+local function get_collection_obj(dbName, dbCol)
     if not g_collection_obj[dbName] then
         g_collection_obj[dbName] = {}
     end
@@ -147,7 +147,7 @@ function M.load(dbName, dbCol, key, unique_id, default)
     t._version = 0
 
     -- 从数据库加载数据
-    local coll_obj = getCollectionObj(dbName, dbCol)
+    local coll_obj = get_collection_obj(dbName, dbCol)
     local ret = coll_obj:find_and_modify({
         query = { [key] = unique_id },
         update = { ["$setOnInsert"] = t },
